@@ -9,7 +9,3 @@ export interface Movie {
     }
 
 
-export interface MoviesResponse { 
-    results: Movie[];
-    total_pages: number;
-}

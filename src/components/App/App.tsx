@@ -20,19 +20,12 @@ function App() {
   const [page, setPage] = useState(1);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
-  console.log({
-    MovieGrid,
-    Loader,
-    ErrorMessage,
-    MovieModal,
-    ReactPaginate,
-    Toaster,
-  });
   const { data, isLoading, isError } = useQuery({
     queryKey: ["movies", query, page],
     queryFn: () => fetchMovies(query, page),
     // enabled: query !== "",
     enabled: query.trim() !== "",
+    placeholderData: (previousData) => previousData,
   });
 
   const movies = data?.results || [];
@@ -54,7 +47,7 @@ function App() {
 
   return (
     <>
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSubmit={handleSearch} />
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
 
